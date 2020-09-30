@@ -262,11 +262,9 @@ trait CassandraStatements {
 
   private[akka] def selectHighestSequenceNr =
     s"""
-     SELECT sequence_nr FROM ${tableName} WHERE
+     SELECT max(sequence_nr) as sequence_nr FROM ${tableName} WHERE
        persistence_id = ? AND
        partition_nr = ?
-       ORDER BY sequence_nr
-       DESC LIMIT 1
    """
 
   private[akka] def selectDeletedTo =
